@@ -24,6 +24,10 @@ trait ArticleTrait{
         return Validator::make($request->all(), $rules, $messages);
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function getCreateParams(Request $request){
         $parameters = [];
 
@@ -43,5 +47,21 @@ trait ArticleTrait{
             $parameters['content'] = $request->input('content');
         }
         return $parameters;
+    }
+
+    /**
+     * @param $articleId
+     * @return mixed
+     */
+    public function validateGetArticleReq($articleId){
+        $rules = [
+            'id' => 'required|string|exists:article,id',
+        ];
+
+        $messages = [
+            'exists' => 'Requested article is not exist'
+        ];
+
+        return Validator::make(["id" => $articleId], $rules, $messages);
     }
 }

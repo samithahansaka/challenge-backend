@@ -5,7 +5,7 @@ interface RepositoryInterface
 {
     public function all();
 
-    public function show($id, array $data);
+    public function show($id);
 
     public function create(array $data);
 

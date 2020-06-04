@@ -8,6 +8,8 @@ use App\Interfaces\UpdateServiceInterface;
 use App\Repositories\ArticleRepository;
 
 use Config;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class ArticleService extends MainService implements DataRetrieveServiceInterface, CreateServiceInterface, DeleteServiceInterface, UpdateServiceInterface{
 
@@ -34,14 +36,21 @@ class ArticleService extends MainService implements DataRetrieveServiceInterface
         $this->articleRepository->create($parameters);
     }
 
+    /**
+     * @return Collection|Model[]
+     */
     public function get()
     {
         return $this->articleRepository->all();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getOne($id)
     {
-        // TODO: Implement getOne() method.
+        return $this->articleRepository->show($id);
     }
 
     public function delete($id)

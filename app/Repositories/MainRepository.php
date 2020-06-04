@@ -27,10 +27,9 @@ class MainRepository
 
     /**
      * @param $id
-     * @param array $data
      * @return mixed
      */
-    public function show($id, array $data)
+    public function show($id)
     {
         return $this->model->findOrFail($id);
     }

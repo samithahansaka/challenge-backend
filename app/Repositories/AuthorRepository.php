@@ -8,7 +8,7 @@ use App\Interfaces\RepositoryInterface;
 class AuthorRepository extends MainRepository implements RepositoryInterface
 {
     /**
-     * VehicleRepository constructor.
+     * AuthorRepository constructor.
      * @param Author $author
      */
     public function __construct(Author $author)

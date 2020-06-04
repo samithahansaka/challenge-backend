@@ -36,7 +36,26 @@ class ArticleController extends Controller
      */
     public function index(){
         try{
-            return $this->apiService->respond($this->articleService->get());
+            return $this->apiService->respond(["articles" => $this->articleService->get()]);
+        }catch (Exception $exception){
+            Log::error($exception);
+            $statusCode = $exception->getCode() ? $exception->getCode() : Response::HTTP_INTERNAL_SERVER_ERROR;
+            return $this->apiService->respondError($exception->getMessage(), $statusCode);
+        }
+    }
+
+    /**
+     * @param $article
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function show($article){
+        try{
+            $validator = $this->validateGetArticleReq($article);
+            if ($validator->fails()) {
+                return $this->apiService->respondError($validator->errors()->toArray(), Response::HTTP_UNPROCESSABLE_ENTITY, 102);
+            }
+            return $this->apiService->respond(["article" => $this->articleService->getOne($article)]);
         }catch (Exception $exception){
             Log::error($exception);
             $statusCode = $exception->getCode() ? $exception->getCode() : Response::HTTP_INTERNAL_SERVER_ERROR;
