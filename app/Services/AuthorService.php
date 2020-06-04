@@ -9,8 +9,6 @@ use App\Traits\v1\AuthorTrait;
 
 class AuthorService extends MainService implements CreateServiceInterface
 {
-    use AuthorTrait;
-
     protected $authorRepository;
 
     /**

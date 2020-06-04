@@ -3,5 +3,5 @@ namespace App\Interfaces;
 
 interface UpdateServiceInterface
 {
-    public function update($identifications, array $parameters);
+    public function update($id, array $parameters);
 }

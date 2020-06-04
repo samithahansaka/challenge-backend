@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     protected $table = 'article';
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable
@@ -17,6 +18,8 @@ class Article extends Model
         'author_id',
         'title',
         'url',
-        'content'
+        'content',
+        'createdAt',
+        'updatedAt'
     ];
 }
