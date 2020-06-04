@@ -55,7 +55,7 @@ class ArticleService extends MainService implements DataRetrieveServiceInterface
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        $this->articleRepository->delete($id);
     }
 
     public function update($id, array $parameters)

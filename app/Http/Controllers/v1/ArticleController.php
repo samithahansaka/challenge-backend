@@ -87,4 +87,24 @@ class ArticleController extends Controller
             return $this->apiService->respondError($exception->getMessage(), $statusCode);
         }
     }
+
+    /**
+     * @param $article
+     * @return JsonResponse
+     */
+    public function delete($article){
+        try{
+            $validator = $this->validateDeleteArticleReq($article);
+            if ($validator->fails()) {
+                return $this->apiService->respondError($validator->errors()->toArray(), Response::HTTP_UNPROCESSABLE_ENTITY, 102);
+            }
+            $this->articleService->delete($article);
+            $message = 'Article deleted successfully !';
+            return $this->apiService->respond($message);
+        }catch (Exception $exception){
+            Log::error($exception);
+            $statusCode = $exception->getCode() ? $exception->getCode() : Response::HTTP_INTERNAL_SERVER_ERROR;
+            return $this->apiService->respondError($exception->getMessage(), $statusCode);
+        }
+    }
 }

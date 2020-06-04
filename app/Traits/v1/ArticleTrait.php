@@ -64,4 +64,20 @@ trait ArticleTrait{
 
         return Validator::make(["id" => $articleId], $rules, $messages);
     }
+
+    /**
+     * @param $articleId
+     * @return mixed
+     */
+    public function validateDeleteArticleReq($articleId){
+        $rules = [
+            'id' => 'required|string|exists:article,id',
+        ];
+
+        $messages = [
+            'exists' => 'No such article exists'
+        ];
+
+        return Validator::make(["id" => $articleId], $rules, $messages);
+    }
 }
