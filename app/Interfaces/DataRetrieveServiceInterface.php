@@ -3,11 +3,7 @@ namespace App\Interfaces;
 
 interface DataRetrieveServiceInterface
 {
+    public function get();
 
-    /**
-     * Interface for data retrieve by parameters set
-     * @param array $parameters
-     * @return mixed
-     */
-    public function get(array $parameters);
+    public function getOne($id);
 }

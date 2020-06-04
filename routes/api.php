@@ -13,7 +13,16 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function (){
+    Route::group(['prefix' => 'authors'], function () {
+        Route::post('/create', 'AuthorController@create');
+    });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::group(['prefix' => 'articles'], function (){
+        Route::get('/', 'ArticleController@index');
+        Route::get('/{article}', 'ArticleController@show');
+        Route::post('/create', 'ArticleController@create');
+        Route::put('/update', 'ArticleController@update');
+        Route::delete('/{article}', 'ArticleController@delete');
+    });
 });
