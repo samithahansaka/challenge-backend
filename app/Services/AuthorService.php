@@ -7,7 +7,7 @@ use App\Interfaces\ValidateServiceInterface;
 use App\Repositories\AuthorRepository;
 use App\Traits\v1\AuthorTrait;
 
-class AuthorService extends MainService implements CreateServiceInterface, ValidateServiceInterface
+class AuthorService extends MainService implements CreateServiceInterface
 {
     use AuthorTrait;
 
@@ -30,10 +30,5 @@ class AuthorService extends MainService implements CreateServiceInterface, Valid
     public function create(array $parameters)
     {
         return $this->authorRepository->insert($parameters);
-    }
-
-    public function validate($parameters, $request)
-    {
-        // TODO: Implement validate() method.
     }
 }
