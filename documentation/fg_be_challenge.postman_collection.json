@@ -1,0 +1,174 @@
+{
+	"info": {
+		"_postman_id": "8e700e54-9c0f-4c24-bdb7-ce4676ce0905",
+		"name": "fg_be_challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Author",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Samitha",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{FG_HOST}}/api/v1/authors/create",
+					"host": [
+						"{{FG_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"authors",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Article",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "author_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "Reasons ssssss",
+							"type": "text"
+						},
+						{
+							"key": "url",
+							"value": "article/2",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "Some content...",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{FG_HOST}}/api/v1/articles/create",
+					"host": [
+						"{{FG_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"articles",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Articles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{FG_HOST}}/api/v1/articles",
+					"host": [
+						"{{FG_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get article by article id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{FG_HOST}}/api/v1/articles/61",
+					"host": [
+						"{{FG_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"articles",
+						"61"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete article",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{FG_HOST}}/api/v1/articles/51",
+					"host": [
+						"{{FG_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"articles",
+						"51"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update article",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "Done",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{FG_HOST}}/api/v1/articles/61",
+					"host": [
+						"{{FG_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"articles",
+						"61"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
