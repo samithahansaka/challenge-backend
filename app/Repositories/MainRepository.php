@@ -18,10 +18,9 @@ class MainRepository
     }
 
     /**
-     * @param array $data
      * @return \Illuminate\Database\Eloquent\Collection|Model[]
      */
-    public function all(array $data)
+    public function all()
     {
         return $this->model->all();
     }

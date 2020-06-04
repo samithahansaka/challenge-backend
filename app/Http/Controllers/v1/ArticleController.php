@@ -31,6 +31,20 @@ class ArticleController extends Controller
     }
 
     /**
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function index(){
+        try{
+            return $this->apiService->respond($this->articleService->get());
+        }catch (Exception $exception){
+            Log::error($exception);
+            $statusCode = $exception->getCode() ? $exception->getCode() : Response::HTTP_INTERNAL_SERVER_ERROR;
+            return $this->apiService->respondError($exception->getMessage(), $statusCode);
+        }
+    }
+
+    /**
      * @param Request $request
      * @return JsonResponse
      * @throws Exception

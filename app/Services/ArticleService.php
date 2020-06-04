@@ -36,7 +36,7 @@ class ArticleService extends MainService implements DataRetrieveServiceInterface
 
     public function get()
     {
-        // TODO: Implement get() method.
+        return $this->articleRepository->all();
     }
 
     public function getOne($id)
