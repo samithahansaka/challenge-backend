@@ -28,7 +28,7 @@ trait ArticleTrait{
      * @param Request $request
      * @return array
      */
-    public function getCreateParams(Request $request){
+    public function getCreateUpdateParams(Request $request){
         $parameters = [];
 
         if ($request->has('author_id')){
@@ -63,6 +63,30 @@ trait ArticleTrait{
         ];
 
         return Validator::make(["id" => $articleId], $rules, $messages);
+    }
+
+    /**
+     * @param Request $request
+     * @param $articleId
+     * @return mixed
+     */
+    public function validateUpdateReq(Request $request, $articleId){
+        $rules = [
+            'articleId' => 'required|string|exists:article,id',
+            'author_id' => 'string|exists:author,id',
+            'title' => 'string',
+            'url' => 'string|unique:article,url',
+            'content' => 'string'
+        ];
+
+        $messages = [
+            'unique' => 'Please enter valid author',
+            'exists' => 'Requested article is not exist'
+        ];
+
+        $validations = array_merge(["articleId" => $articleId], $request->all());
+
+        return Validator::make($validations, $rules, $messages);
     }
 
     /**

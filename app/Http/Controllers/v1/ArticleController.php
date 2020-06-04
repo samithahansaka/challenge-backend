@@ -32,7 +32,6 @@ class ArticleController extends Controller
 
     /**
      * @return JsonResponse
-     * @throws Exception
      */
     public function index(){
         try{
@@ -47,7 +46,6 @@ class ArticleController extends Controller
     /**
      * @param $article
      * @return JsonResponse
-     * @throws Exception
      */
     public function show($article){
         try{
@@ -66,7 +64,6 @@ class ArticleController extends Controller
     /**
      * @param Request $request
      * @return JsonResponse
-     * @throws Exception
      */
     public function create(Request $request){
         try {
@@ -74,12 +71,37 @@ class ArticleController extends Controller
             if ($validator->fails()) {
                 return $this->apiService->respondError($validator->errors()->toArray(), Response::HTTP_UNPROCESSABLE_ENTITY, 102);
             }
-            $parameters = $this->getCreateParams($request);
+            $parameters = $this->getCreateUpdateParams($request);
             if (!count($parameters)) {
                 throw new Exception('Nothing to create !');
             }
             $this->articleService->create($parameters);
             $message = 'Article created successfully !';
+            return $this->apiService->respond($message);
+        } catch (Exception $exception) {
+            Log::error($exception);
+            $statusCode = $exception->getCode() ? $exception->getCode() : Response::HTTP_INTERNAL_SERVER_ERROR;
+            return $this->apiService->respondError($exception->getMessage(), $statusCode);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param $article
+     * @return JsonResponse
+     */
+    public function update(Request $request, $article){
+        try {
+            $validator = $this->validateUpdateReq($request, $article);
+            if ($validator->fails()) {
+                return $this->apiService->respondError($validator->errors()->toArray(), Response::HTTP_UNPROCESSABLE_ENTITY, 102);
+            }
+            $parameters = $this->getCreateUpdateParams($request);
+            if (!count($parameters)) {
+                throw new Exception('Nothing to update !');
+            }
+            $this->articleService->update($article, $parameters);
+            $message = 'Article updated successfully !';
             return $this->apiService->respond($message);
         } catch (Exception $exception) {
             Log::error($exception);

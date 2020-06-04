@@ -20,7 +20,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function (){
         Route::get('/', 'ArticleController@index');
         Route::get('/{article}', 'ArticleController@show');
         Route::post('/create', 'ArticleController@create');
-        Route::put('/update', 'ArticleController@update');
+        Route::put('/{article}', 'ArticleController@update');
         Route::delete('/{article}', 'ArticleController@delete');
     });
 });

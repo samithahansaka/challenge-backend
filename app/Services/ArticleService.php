@@ -6,10 +6,10 @@ use App\Interfaces\DataRetrieveServiceInterface;
 use App\Interfaces\DeleteServiceInterface;
 use App\Interfaces\UpdateServiceInterface;
 use App\Repositories\ArticleRepository;
-
-use Config;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+
+use Config;
 
 class ArticleService extends MainService implements DataRetrieveServiceInterface, CreateServiceInterface, DeleteServiceInterface, UpdateServiceInterface{
 
@@ -58,8 +58,14 @@ class ArticleService extends MainService implements DataRetrieveServiceInterface
         $this->articleRepository->delete($id);
     }
 
+    /**
+     * @param $id
+     * @param array $parameters
+     * @return mixed
+     */
     public function update($id, array $parameters)
     {
-        // TODO: Implement update() method.
+        $parameters['updatedAt'] = date(Config::get('constants.date_options.save_date_format'));
+        return $this->articleRepository->update($parameters, $id);
     }
 }
