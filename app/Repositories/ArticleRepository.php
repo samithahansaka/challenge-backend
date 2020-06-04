@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Article;
-use App\Author;
 use App\Interfaces\RepositoryInterface;
 
 class ArticleRepository extends MainRepository implements RepositoryInterface
@@ -18,15 +17,16 @@ class ArticleRepository extends MainRepository implements RepositoryInterface
     }
 
     /**
-     * @param array $parameters
+     * @param $id
      * @return mixed
      */
-    public function getArticle(array $parameters)
+    public function getArticleById($id)
     {
-        $records = $this->model->select('id', 'name');
-        if (!empty($parameters['id'])) {
-            $records = $records->where("id", $parameters['id']);
-        }
-        return $records->get();
+        return $this->show($id);
+    }
+
+    public function getAllArticles()
+    {
+        return $this->all();
     }
 }

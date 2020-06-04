@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class MainRepository
@@ -18,7 +19,7 @@ class MainRepository
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection|Model[]
+     * @return Collection|Model[]
      */
     public function all()
     {
@@ -31,7 +32,7 @@ class MainRepository
      */
     public function show($id)
     {
-        return $this->model->findOrFail($id);
+        return $records = $this->model->find($id);
     }
 
     /**

@@ -3,9 +3,7 @@
 namespace App\Services;
 
 use App\Interfaces\CreateServiceInterface;
-use App\Interfaces\ValidateServiceInterface;
 use App\Repositories\AuthorRepository;
-use App\Traits\v1\AuthorTrait;
 
 class AuthorService extends MainService implements CreateServiceInterface
 {

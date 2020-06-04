@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Transformers\ArticleTransformer;
 use App\Services\APIService;
 use App\Services\ArticleService;
 use App\Traits\v1\ArticleTrait;
@@ -10,24 +11,31 @@ use Illuminate\Http\Request;
 
 use Exception;
 use Illuminate\Http\Response;
+use League\Fractal\Manager;
 use Log;
 
 class ArticleController extends Controller
 {
     use ArticleTrait;
 
-    protected $apiService;
-    protected $articleService;
+    private $apiService;
+    private $articleService;
+    private $manager;
+    private $articleTransformer;
 
     /**
      * AuthorController constructor
      * @param APIService $apiService
      * @param ArticleService $articleService
+     * @param Manager $manager
+     * @param ArticleTransformer $articleTransformer
      */
-    public function __construct(APIService $apiService, ArticleService $articleService)
+    public function __construct(APIService $apiService, ArticleService $articleService, Manager $manager, ArticleTransformer $articleTransformer)
     {
         $this->apiService = $apiService;
         $this->articleService = $articleService;
+        $this->manager = $manager;
+        $this->articleTransformer = $articleTransformer;
     }
 
     /**
@@ -35,7 +43,8 @@ class ArticleController extends Controller
      */
     public function index(){
         try{
-            return $this->apiService->respond(["articles" => $this->articleService->get()]);
+            $articles = $this->transformCollection($this->articleService->get(), $this->articleTransformer, $this->manager);
+            return $this->apiService->respond($articles);
         }catch (Exception $exception){
             Log::error($exception);
             $statusCode = $exception->getCode() ? $exception->getCode() : Response::HTTP_INTERNAL_SERVER_ERROR;
@@ -53,7 +62,8 @@ class ArticleController extends Controller
             if ($validator->fails()) {
                 return $this->apiService->respondError($validator->errors()->toArray(), Response::HTTP_UNPROCESSABLE_ENTITY, 102);
             }
-            return $this->apiService->respond(["article" => $this->articleService->getOne($article)]);
+            $article = $this->transformSingleData($this->articleService->getOne($article), $this->articleTransformer);
+            return $this->apiService->respond($article);
         }catch (Exception $exception){
             Log::error($exception);
             $statusCode = $exception->getCode() ? $exception->getCode() : Response::HTTP_INTERNAL_SERVER_ERROR;

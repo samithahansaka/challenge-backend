@@ -41,7 +41,7 @@ class ArticleService extends MainService implements DataRetrieveServiceInterface
      */
     public function get()
     {
-        return $this->articleRepository->all();
+        return $this->articleRepository->getAllArticles();
     }
 
     /**
@@ -50,7 +50,7 @@ class ArticleService extends MainService implements DataRetrieveServiceInterface
      */
     public function getOne($id)
     {
-        return $this->articleRepository->show($id);
+        return $this->articleRepository->getArticleById($id);
     }
 
     public function delete($id)

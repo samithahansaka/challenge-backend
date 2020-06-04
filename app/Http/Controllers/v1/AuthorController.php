@@ -15,8 +15,8 @@ class AuthorController extends Controller
 {
     use AuthorTrait;
 
-    protected $apiService;
-    protected $authorService;
+    private $apiService;
+    private $authorService;
 
     /**
      * AuthorController constructor
