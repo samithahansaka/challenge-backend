@@ -2,12 +2,14 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Response;
+
 class APIService
 {
     protected $success_status_string = 'success';
     protected $fail_status_string = 'fail';
     protected $data;
-    protected $status_code = 200;
+    protected $status_code = Response::HTTP_OK;
     protected $error_code;
 
     /**
@@ -47,7 +49,7 @@ class APIService
      */
     private function getStatusString()
     {
-        return $this->getStatusCode() == 200 ? $this->success_status_string : $this->fail_status_string;
+        return $this->getStatusCode() == Response::HTTP_OK ? $this->success_status_string : $this->fail_status_string;
     }
 
     /**
@@ -96,7 +98,7 @@ class APIService
      * @param int $status_code
      * @return \Illuminate\Http\JsonResponse
      */
-    public function respond($data = null, $status_code = 200)
+    public function respond($data = null, $status_code = Response::HTTP_OK)
     {
         $this->setData($data);
         $this->setStatusCode($status_code);
@@ -109,7 +111,7 @@ class APIService
      * @param null $error_code
      * @return \Illuminate\Http\JsonResponse
      */
-    public function respondError($data = null, $status_code = 200, $error_code = null)
+    public function respondError($data = null, $status_code = Response::HTTP_OK, $error_code = null)
     {
         $this->setData($data);
         $this->setStatusCode($status_code);

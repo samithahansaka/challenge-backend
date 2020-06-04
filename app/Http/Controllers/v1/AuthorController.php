@@ -8,6 +8,7 @@ use App\Traits\v1\AuthorTrait;
 use Illuminate\Http\Request;
 
 use Exception;
+use Illuminate\Http\Response;
 use Log;
 
 class AuthorController extends Controller
@@ -37,7 +38,7 @@ class AuthorController extends Controller
         try {
             $validator = $this->validateCreateRequest($request);
             if ($validator->fails()) {
-                return $this->apiService->respondError($validator->errors()->toArray(), 422, 102);
+                return $this->apiService->respondError($validator->errors()->toArray(), Response::HTTP_UNPROCESSABLE_ENTITY, 102);
             }
             $parameters = $this->getCreateParams($request);
             if (empty($parameters['name'])) {
@@ -48,7 +49,7 @@ class AuthorController extends Controller
             return $this->apiService->respond($message);
         } catch (Exception $exception){
             Log::error($exception);
-            $statusCode = $exception->getCode() ? $exception->getCode() : 500;
+            $statusCode = $exception->getCode() ? $exception->getCode() : Response::HTTP_INTERNAL_SERVER_ERROR;
             return $this->apiService->respondError($exception->getMessage(), $statusCode);
         }
     }
